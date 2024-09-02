@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import socket
 import ssl
 from typing import (
     TYPE_CHECKING,
@@ -103,6 +104,7 @@ class AiohttpSession(BaseSession):
         self._connector_init: Dict[str, Any] = {
             "ssl": ssl.create_default_context(cafile=certifi.where()),
             "limit": limit,
+            "family": socket.AF_INET,
             "ttl_dns_cache": 3600,  # Workaround for https://github.com/aiogram/aiogram/issues/1500
         }
         self._should_reset_connector = True  # flag determines connector state
